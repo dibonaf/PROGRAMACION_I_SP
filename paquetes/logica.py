@@ -110,6 +110,24 @@ def jugar(
 
 
 def estado_nombre(pantalla, evento, nombre_jugador):
+    """
+    Gestiona la entrada del nombre del jugador en la pantalla de ingreso.
+
+    Permite al jugador escribir un nombre de hasta 3 caracteres alfabéticos.
+    Procesa las pulsaciones de teclas para añadir o borrar caracteres
+    y para confirmar la entrada del nombre.
+
+    Args:
+        pantalla (Surface): La superficie de Pygame donde se dibuja el juego.
+                           (Aunque no se usa directamente aquí, es un parámetro común).
+        evento (Event): El evento actual capturado por Pygame (usado para detectar pulsaciones de teclas).
+        nombre_jugador (str): El nombre actual del jugador (cadena de texto).
+
+    Returns:
+        tuple:
+            - nuevo_estado (str): El estado del juego al que se debe transicionar ("NOMBRE" o "JUGAR").
+            - nombre_jugador (str): El nombre del jugador actualizado.
+    """
     nuevo_estado = "NOMBRE"
 
     if evento.type == pg.KEYDOWN:
@@ -121,6 +139,7 @@ def estado_nombre(pantalla, evento, nombre_jugador):
             nombre_jugador += evento.unicode.upper()
 
     return nuevo_estado, nombre_jugador
+
 
 
 def manejar_evento_estado(
