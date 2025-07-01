@@ -39,13 +39,11 @@ def main() -> None:
     musica_activada = True
     tablero_actual = None
     tablero_disparos = None
-    rect_reiniciar = None
     nombre_jugador = ""  # inicia vacio
     puntaje_jugador = 0  # inicia en 0 -> (puede bajar a negativo)
     puntaje_jugador_vivo = 0
     ruta = "estaticos/archivos/puntajes.json"
     datos_jugadores = {}
-    click_procesado = False
 
     # CREACION DE IMAGEN -> (FONDO)
     fondo = pg.image.load("estaticos/imagenes/fondo.jpg")  # MODIFICAR FONDO

@@ -203,35 +203,31 @@ def manejar_disparo(
     fila = (y - margen_arriba) // tamano_celda
 
     if 0 <= fila < len(tablero) and 0 <= columna < len(tablero[0]):
-        if (
-            tablero_disparos[fila][columna] == 0
-        ):  # Si la celda no ha sido disparada #Se agrego 25/06
+        if tablero_disparos[fila][columna] == 0:  # Si la celda no ha sido disparada
             valor_celda = tablero[fila][columna]
 
             if valor_celda == 0:  # Es agua
                 tablero_disparos[fila][columna] = -1
-                puntaje = -1  # Restar 1 punto por disparo al agua #Se agrego 25/06
-            else:  # Es una nave (valor_celda > 1, ya que 1 era antes el marcador de nave) #Se agrego 25/06
+                puntaje = -1  # Restar 1 punto por disparo al agua
+            else:  # Es una nave (valor_celda > 1, ya que 1 era antes el marcador de nave)
                 tablero_disparos[fila][columna] = 1  # Marcar como golpeado
-                puntaje = 5  # Sumar 5 puntos por averiar la nave #Se agrego 25/06
+                puntaje = 5  # Sumar 5 puntos por averiar la nave
 
-                # Verificar si la nave fue hundida #Se agrego 25/06
-                id_nave_golpeada = valor_celda  # Se agrego 25/06
-                partes_totales_nave = sum(  # Se agrego 25/06
-                    fila_tablero.count(id_nave_golpeada)
-                    for fila_tablero in tablero  # Se agrego 25/06
-                )  # Se agrego 25/06
-                partes_danadas_nave = sum(  # Se agrego 25/06
-                    1  # Se agrego 25/06
-                    for r in range(len(tablero))  # Se agrego 25/06
-                    for c in range(len(tablero[0]))  # Se agrego 25/06
-                    if tablero[r][c] == id_nave_golpeada
-                    and tablero_disparos[r][c] == 1  # Se agrego 25/06
-                )  # Se agrego 25/06
+                # Verificar si la nave fue hundida
+                id_nave_golpeada = valor_celda
+                partes_totales_nave = sum(
+                    fila_tablero.count(id_nave_golpeada) for fila_tablero in tablero
+                )
+                partes_danadas_nave = sum(
+                    1
+                    for r in range(len(tablero))
+                    for c in range(len(tablero[0]))
+                    if tablero[r][c] == id_nave_golpeada and tablero_disparos[r][c] == 1
+                )
 
-                if partes_danadas_nave == partes_totales_nave:  # Se agrego 25/06
-                    # Nave hundida, sumar 10 puntos por cada elemento de la nave #Se agrego 25/06
-                    puntaje += 10 * partes_totales_nave  # Se agrego 25/06
+                if partes_danadas_nave == partes_totales_nave:
+                    # Nave hundida, sumar 10 puntos por cada elemento de la nave
+                    puntaje += 10 * partes_totales_nave
                     celdas_barco = [
                         (r, c)
                         for r in range(len(tablero))
@@ -366,7 +362,7 @@ def imprimir_tablero(
     # Letras filas a la izquierda
     letras = string.ascii_uppercase
     for fila in range(len(tablero)):
-        letra = letras[fila] if fila < len(letras) else "?"
+        letra = letras[fila] if fila < len(letras) else "-"
         texto_letra = fuente_coord.render(letra, True, (255, 255, 255))
         x = margen_izquierdo // 2 - texto_letra.get_width() // 2
         y = (
