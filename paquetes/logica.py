@@ -55,20 +55,6 @@ def jugar(
         nombre_jugador,
         nivel_actual,
     )
-    """
-    Gestiona la entrada del nombre del jugador en el estado 'NOMBRE'.
-
-    Permite capturar letras, borrar con Backspace y confirma el nombre al presionar Enter,
-    siempre que el nombre tenga 3 caracteres.
-
-    Args:
-        pantalla (Surface): La ventana donde se renderiza el juego.
-        evento (Event): El evento actual capturado por Pygame.
-        nombre_jugador (str): Nombre actual introducido por el jugador.
-
-    Returns:
-        tuple: Nuevo estado (str) y nombre_jugador actualizado (str).
-    """
 
     click_procesado = False
 
@@ -76,7 +62,11 @@ def jugar(
         posicion = pg.mouse.get_pos()
 
         if rect_volver and rect_volver.collidepoint(posicion):
+            tablero_actual = crear_tablero_con_naves(nivel_actual)
+            tablero_disparos = crear_tablero_vacio(len(tablero_actual))
+            puntaje_jugador_vivo = 0
             estado = "MENU"
+
         elif rect_reiniciar and rect_reiniciar.collidepoint(posicion):
             tablero_actual = crear_tablero_con_naves(nivel_actual)
             tablero_disparos = crear_tablero_vacio(len(tablero_actual))
@@ -139,7 +129,6 @@ def estado_nombre(pantalla, evento, nombre_jugador):
             nombre_jugador += evento.unicode.upper()
 
     return nuevo_estado, nombre_jugador
-
 
 
 def manejar_evento_estado(
